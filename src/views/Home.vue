@@ -1,34 +1,23 @@
 <template>
   <div>
-    <div>
-      <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-        <router-link class="navbar-brand font-italic" to="/"
-          >HappyShop</router-link
-        >
-        <form class="form-inline my-lg-1 mx-auto w-75">
-          <input
-            class="form-control mr-sm-2 w-75"
-            type="search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success my-sm-0" type="submit">
-            Search
-          </button>
-        </form>
-      </nav>
-    </div>
-    <div class="page-container">
-      <router-view />
-    </div>
+    <NavBar />
+    <Products />
   </div>
 </template>
 <script>
+import NavBar from "./NavBar.vue";
+import Products from "./Products.vue";
+
 export default {
+  components: { Products, NavBar },
   name: "Home",
 };
 </script>
 
 <style>
+body {
+  padding-top: 70px;
+}
 .navbar-brand {
   font-size: 1.5rem;
   font-family: "Times New Roman", Times, serif;

@@ -6,17 +6,17 @@ const state = {
 }
 
 const getters = {
-    getProducts: state => state.products,
-    getProduct: state => state.product
+    allProducts: state => state.products,
+    selectedProduct: state => state.product
 }
 
 const actions = {
-    async fetchProducts({ commit }) {
-        const response = await axios.get('/api/products');
+    async getProducts({ commit }) {
+        const response = await axios.get('http://localhost:3001/products');
         commit('setProducts', response.data);
     },
-    async fetchProduct({ commit }, id) {
-        const response = await axios.get(`/api/products/${id}`);
+    async getProduct({ commit }, id) {
+        const response = await axios.get(`http://localhost:3001/products/${id}`);
         commit('setProduct', response.data);
     },
 }
