@@ -22,4 +22,12 @@
 .bg-ow {
   background-color: #f9f9f9;
 }
+.navbar-brand {
+  font-size: 1.5rem;
+  font-family: "Times New Roman", Times, serif;
+  margin-left: 13%;
+}
+form {
+  max-width: 1000px;
+}
 </style>

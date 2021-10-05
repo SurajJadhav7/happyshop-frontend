@@ -1,15 +1,15 @@
 <template>
   <div>
-    <NavBar />
+    <Filters />
     <Products />
   </div>
 </template>
 <script>
-import NavBar from "./NavBar.vue";
-import Products from "./Products.vue";
+import Products from "../components/Products.vue";
+import Filters from "../components/Filters.vue";
 
 export default {
-  components: { Products, NavBar },
+  components: { Products, Filters },
   name: "Home",
 };
 </script>
@@ -17,13 +17,5 @@ export default {
 <style>
 body {
   padding-top: 70px;
-}
-.navbar-brand {
-  font-size: 1.5rem;
-  font-family: "Times New Roman", Times, serif;
-  margin-left: 10%;
-}
-form {
-  max-width: 1000px;
 }
 </style>
