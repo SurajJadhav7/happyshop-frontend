@@ -1,28 +1,18 @@
 <template>
-  <div class="text-center"></div>
+  <div class="text-center">
+    <div class="d-inline-block">
+      <FilterByCategory />
+    </div>
+  </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import FilterByCategory from "./FilterByCategory.vue";
+
 export default {
   name: "Filters",
-  data() {
-    return {
-      categories: [],
-    };
-  },
-  computed: {
-    ...mapGetters(["allCategories"]),
-  },
-  methods: {
-    ...mapActions(["getCategories"]),
-  },
-  async created() {
-    await this.getCategories();
-    this.categories = this.allCategories;
+  components: {
+    FilterByCategory,
   },
 };
 </script>
-
-<style>
-</style>

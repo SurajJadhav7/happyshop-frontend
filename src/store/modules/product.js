@@ -22,9 +22,8 @@ const actions = {
         commit('setProduct', response.data);
     },
     async getCategories({ commit }) {
-        const response = await axios.get('http://localhost:3001/products');
-        const categories = [...new Set(response.data.map(product => product.category))];
-        commit('setCategories', categories);
+        const response = await axios.get('http://localhost:3001/categories');
+        commit('setCategories', response.data);
     }
 }
 
