@@ -13,8 +13,9 @@ const getters = {
 }
 
 const actions = {
-    async getProducts({ commit }) {
-        const response = await axios.get('http://localhost:3001/products');
+    async getProducts({ commit }, { q = '', category = '', sort = '', minprice = 50, maxprice = 10000 }) {
+        const params = `q=${q}&category=${category}&sort=${sort}&minprice=${minprice}&maxprice=${maxprice}`
+        const response = await axios.get(`http://localhost:3001/products?${params}`);
         commit('setProducts', response.data);
     },
     async getProduct({ commit }, id) {

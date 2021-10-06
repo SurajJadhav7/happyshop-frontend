@@ -25,7 +25,7 @@ export default {
     ...mapActions(["getProduct", "getProducts"]),
   },
   mounted() {
-    this.getProducts();
+    this.getProducts({});
   },
 };
 </script>

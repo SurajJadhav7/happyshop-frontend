@@ -1,5 +1,9 @@
 <template>
-  <select v-model="selectedCategory" class="category-filter">
+  <select
+    v-model="selectedCategory"
+    class="category-filter"
+    @change="onFilterByCategory($event.target.value)"
+  >
     <option value="" disabled selected>Filter by Category</option>
     <option v-for="category in categories" :key="category" :value="category">
       {{ category }}
@@ -21,7 +25,11 @@ export default {
     ...mapGetters(["allCategories"]),
   },
   methods: {
-    ...mapActions(["getCategories"]),
+    ...mapActions(["getCategories", "getProducts"]),
+    async onFilterByCategory(category) {
+      this.selectedCategory = category;
+      await this.getProducts({ category });
+    },
   },
   async created() {
     await this.getCategories();
