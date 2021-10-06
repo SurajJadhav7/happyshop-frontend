@@ -1,8 +1,8 @@
 <template>
   <select
-    v-model="selectedSort"
-    class="price-sort w-100"
+    class="price-sort w-100 ml-5"
     @change="onSort($event.target.value)"
+    :value="sortBy"
   >
     <option value="" selected>Sort By Price</option>
     <option value="lowtohigh">Price: Low to High</option>
@@ -14,10 +14,10 @@
 import { mapActions, mapMutations } from "vuex";
 export default {
   name: "FilterBySort",
-  data() {
-    return {
-      selectedSort: "",
-    };
+  computed: {
+    sortBy() {
+      return this.$store.state.product.sort;
+    },
   },
   methods: {
     ...mapActions(["getProducts"]),

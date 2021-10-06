@@ -2,6 +2,7 @@
   <select
     class="category-filter"
     @change="onFilterByCategory($event.target.value)"
+    :value="selectedCategory"
   >
     <option value="" selected>Filter by Category</option>
     <option v-for="category in categories" :key="category" :value="category">
@@ -21,6 +22,9 @@ export default {
   },
   computed: {
     ...mapGetters(["allCategories"]),
+    selectedCategory() {
+      return this.$store.state.product.category;
+    },
   },
   methods: {
     ...mapActions(["getCategories", "getProducts"]),

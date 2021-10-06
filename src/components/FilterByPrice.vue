@@ -6,9 +6,10 @@
         @change="onFilterByMinPrice($event.target.value)"
         type="number"
         class="text-center price-filter ml-3"
-        value="50"
+        :value="minPrice"
         min="50"
         max="10000"
+        maxlength="5"
       />
     </div>
     <div class="d-inline-block">
@@ -17,7 +18,7 @@
         @change="onFilterByMaxPrice($event.target.value)"
         type="number"
         class="text-center price-filter mx-3"
-        value="10000"
+        :value="maxPrice"
         min="50"
         max="10000"
       />
@@ -29,6 +30,14 @@
 import { mapActions, mapMutations } from "vuex";
 export default {
   name: "FilterByPrice",
+  computed: {
+    minPrice() {
+      return this.$store.state.product.minprice;
+    },
+    maxPrice() {
+      return this.$store.state.product.maxprice;
+    },
+  },
   methods: {
     ...mapActions(["getProducts"]),
     ...mapMutations(["setMinPrice", "setMaxPrice"]),
