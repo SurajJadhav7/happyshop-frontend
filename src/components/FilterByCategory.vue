@@ -4,7 +4,7 @@
     class="category-filter"
     @change="onFilterByCategory($event.target.value)"
   >
-    <option value="" disabled selected>Filter by Category</option>
+    <option value="" selected>Filter by Category</option>
     <option v-for="category in categories" :key="category" :value="category">
       {{ category }}
     </option>
