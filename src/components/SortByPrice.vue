@@ -1,13 +1,17 @@
 <template>
-  <select
-    class="price-sort w-100 ml-5"
-    @change="onSort($event.target.value)"
-    :value="sortBy"
-  >
-    <option value="" selected>Sort By Price</option>
-    <option value="lowtohigh">Price: Low to High</option>
-    <option value="hightolow">Price: High to Low</option>
-  </select>
+  <div class="text-center">
+    <div class="d-inline-block ml-5">
+      <select
+        class="price-sort w-100"
+        @change="onSort($event.target.value)"
+        :value="sortBy"
+      >
+        <option value="" selected>Sort By Price</option>
+        <option value="lowtohigh">Price: Low to High</option>
+        <option value="hightolow">Price: High to Low</option>
+      </select>
+    </div>
+  </div>
 </template>
 
 <script>

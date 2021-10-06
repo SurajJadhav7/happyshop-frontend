@@ -1,27 +1,18 @@
 <template>
   <div class="text-center">
-    <div class="d-inline-block">
-      <label for="minPrice" class="ml-5">Min Price</label>
-      <input
-        @change="onFilterByMinPrice($event.target.value)"
-        type="number"
-        class="text-center price-filter ml-3"
-        :value="getMinPrice"
-        min="50"
-        max="10000"
-        maxlength="5"
-      />
-    </div>
-    <div class="d-inline-block">
-      <label for="minPrice" class="ml-5">Max Price</label>
-      <input
-        @change="onFilterByMaxPrice($event.target.value)"
-        type="number"
-        class="text-center price-filter mx-3"
-        :value="getMaxPrice"
-        min="50"
-        max="10000"
-      />
+    <div class="d-inline-block ml-5">
+      <select
+        class="price-filter w-100"
+        @change="onFilterByPrice($event.target.value)"
+        :value="getPriceFilter"
+      >
+        <option value="" selected>Filter by Price</option>
+        <option value="1">Under $1000</option>
+        <option value="2">$1000 - $2000</option>
+        <option value="3">$2000 - $4000</option>
+        <option value="4">$4000 - $8000</option>
+        <option value="5">Over $8000</option>
+      </select>
     </div>
   </div>
 </template>
@@ -32,18 +23,13 @@ export default {
   name: "FilterByPrice",
   computed: {
     ...mapGetters({
-      getMinPrice: "getMinPrice",
-      getMaxPrice: "getMaxPrice",
+      getPriceFilter: "getPriceFilter",
     }),
   },
   methods: {
-    ...mapActions(["fetchProducts", "changeMinPrice", "changeMaxPrice"]),
-    async onFilterByMinPrice(minprice) {
-      this.changeMinPrice(minprice);
-      await this.fetchProducts();
-    },
-    async onFilterByMaxPrice(maxprice) {
-      this.changeMaxPrice(maxprice);
+    ...mapActions(["fetchProducts", "changePriceFilter"]),
+    async onFilterByPrice(value) {
+      this.changePriceFilter(value);
       await this.fetchProducts();
     },
   },
@@ -53,7 +39,7 @@ export default {
 <style>
 .price-filter {
   border-radius: 0.25rem;
-  padding: 7px;
+  padding: 10px;
   border: 1px solid #ced4da;
   width: 100px;
 }

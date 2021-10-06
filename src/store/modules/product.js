@@ -7,8 +7,7 @@ const state = {
     query: '',
     category: '',
     sort: '',
-    minprice: 50,
-    maxprice: 10000,
+    priceFilter: '',
     page: 1,
     totalPages: 1,
 }
@@ -20,15 +19,20 @@ const getters = {
     getQuery: state => state.query,
     getCategory: state => state.category,
     getSort: state => state.sort,
-    getMinPrice: state => state.minprice,
-    getMaxPrice: state => state.maxprice,
+    getPriceFilter: state => state.priceFilter,
     getPage: state => state.page,
     getTotalPages: state => state.totalPages,
 }
 
 const actions = {
     async fetchProducts({ commit }) {
-        const params = `query=${state.query}&category=${state.category}&sort=${state.sort}&minprice=${state.minprice}&maxprice=${state.maxprice}&page=${state.page}`
+        let minprice = 50;
+        let maxprice = 10000;
+        if (state.priceFilter !== '') {
+            minprice = [50, 1000, 2000, 4000, 8000][parseInt(state.priceFilter) - 1];
+            maxprice = [1000, 2000, 4000, 8000, 10000][parseInt(state.priceFilter) - 1];
+        }
+        const params = `query=${state.query}&category=${state.category}&sort=${state.sort}&minprice=${minprice}&maxprice=${maxprice}&page=${state.page}`
         const response = await axios.get(`http://localhost:3001/products?${params}`);
         const products = response.data.products.map(product => ({ ...product, img: 'http://loremflickr.com/300/300/product' }));
         commit('setProducts', products);
@@ -61,13 +65,9 @@ const actions = {
         commit('setPage', 1);
         commit('setSort', sort);
     },
-    async changeMinPrice({ commit }, minprice) {
+    async changePriceFilter({ commit }, priceFilter) {
         commit('setPage', 1);
-        commit('setMinPrice', minprice);
-    },
-    async changeMaxPrice({ commit }, maxprice) {
-        commit('setPage', 1);
-        commit('setMaxPrice', maxprice);
+        commit('setPriceFilter', priceFilter);
     }
 }
 
@@ -78,8 +78,7 @@ const mutations = {
     setQuery: (state, query) => (state.query = query),
     setCategory: (state, category) => (state.category = category),
     setSort: (state, sort) => (state.sort = sort),
-    setMinPrice: (state, minprice) => (state.minprice = minprice),
-    setMaxPrice: (state, maxprice) => (state.maxprice = maxprice),
+    setPriceFilter: (state, priceFilter) => (state.priceFilter = priceFilter),
     resetState: () => {
         state.products = []
         state.product = {}
@@ -87,8 +86,7 @@ const mutations = {
         state.query = ''
         state.category = ''
         state.sort = ''
-        state.minprice = 50
-        state.maxprice = 10000
+        state.priceFilter = ''
         state.page = 1
         state.totalPages = 1
     },

@@ -7,7 +7,10 @@
         v-on:click.native="goToHomePage()"
         >HappyShop</router-link
       >
-      <form class="form-inline my-lg-1 mx-auto w-75" @submit="onSearch($event)">
+      <form
+        class="form-inline my-lg-1 mx-auto w-75"
+        @submit="onSearch($event, $event.target.search.value)"
+      >
         <input
           class="form-control mr-sm-2 w-75"
           type="search"
@@ -30,9 +33,9 @@ export default {
   },
   methods: {
     ...mapActions(["fetchProducts", "callResetState", "changeQuery"]),
-    async onSearch(e) {
+    async onSearch(e, query) {
       e.preventDefault();
-      this.changeQuery(e.target.search.value);
+      this.changeQuery(query);
       await this.fetchProducts();
     },
     goToHomePage() {
