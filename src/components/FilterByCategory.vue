@@ -1,6 +1,5 @@
 <template>
   <select
-    v-model="selectedCategory"
     class="category-filter"
     @change="onFilterByCategory($event.target.value)"
   >
@@ -12,13 +11,12 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 export default {
   name: "FilterByCategory",
   data() {
     return {
       categories: [],
-      selectedCategory: "",
     };
   },
   computed: {
@@ -26,9 +24,10 @@ export default {
   },
   methods: {
     ...mapActions(["getCategories", "getProducts"]),
+    ...mapMutations(["setCategory"]),
     async onFilterByCategory(category) {
-      this.selectedCategory = category;
-      await this.getProducts({ category });
+      this.setCategory(category);
+      await this.getProducts();
     },
   },
   async created() {
