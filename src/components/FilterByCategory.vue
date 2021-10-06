@@ -41,7 +41,7 @@ export default {
 <style>
 .category-filter {
   border-radius: 0.25rem;
-  padding: 7px;
+  padding: 10px;
   border: 1px solid #ced4da;
 }
 </style>
