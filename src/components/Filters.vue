@@ -14,7 +14,7 @@
 
 <script>
 import FilterByCategory from "./FilterByCategory.vue";
-import FilterByPrice from "./FilterByPrice.vue";
+import FilterByPrice from "./FilterByPrice";
 import SortByPrice from "./SortByPrice.vue";
 
 export default {

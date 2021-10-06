@@ -12,7 +12,7 @@
           class="form-control mr-sm-2 w-75"
           type="search"
           name="search"
-          :value="query"
+          :value="getQuery"
         />
         <button class="btn btn-outline-success my-sm-0" type="submit">
           Search
@@ -23,24 +23,21 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   computed: {
-    query() {
-      return this.$store.state.product.q;
-    },
+    ...mapGetters(["getQuery"]),
   },
   methods: {
-    ...mapActions(["getProducts", "resetState"]),
-    ...mapMutations(["setQ"]),
+    ...mapActions(["fetchProducts", "callResetState", "changeQuery"]),
     async onSearch(e) {
       e.preventDefault();
-      this.setQ(e.target.search.value);
-      await this.getProducts();
+      this.changeQuery(e.target.search.value);
+      await this.fetchProducts();
     },
     goToHomePage() {
-      this.resetState();
-      this.getProducts();
+      this.callResetState();
+      this.fetchProducts();
     },
   },
 };

@@ -3,23 +3,19 @@
     <div class="col-lg-10 main-section bg-white p-0">
       <div class="row m-0">
         <div class="col-lg-6 p-0 m-0">
-          <img class="w-100" src="https://lorempixel.com/600/800/abstract/" />
+          <img class="w-100" :src="product.img" />
         </div>
         <div class="col-lg-6">
           <div class="right-side p-3 m-0">
             <div class="row">
               <div class="col-lg-12">
-                <span>{{ selectedProduct.category }}</span>
-                <p class="m-0 p-0 text-lg-left">{{ selectedProduct.name }}</p>
+                <span>{{ getProduct.category }}</span>
+                <p class="m-0 p-0 text-lg-left">{{ getProduct.name }}</p>
               </div>
               <div class="col-lg-12">
-                <h4 class="price-sale mr-1">
-                  ${{ selectedProduct.sale_price }}
-                </h4>
-                <h2 class="m-0 p-0 price-pro mr-3">
-                  ${{ selectedProduct.price }}
-                </h2>
-                <h5 class="d-inline">{{ selectedProduct.sale_text }}</h5>
+                <h4 class="price-sale mr-1">${{ getProduct.sale_price }}</h4>
+                <h2 class="m-0 p-0 price-pro mr-3">${{ getProduct.price }}</h2>
+                <h5 class="d-inline">{{ getProduct.sale_text }}</h5>
                 <hr class="p-0 my-3" />
               </div>
               <div class="col-lg-12 pt-2">
@@ -60,18 +56,15 @@
   </div>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Details",
   computed: {
-    ...mapGetters(["selectedProduct"]),
-  },
-  methods: {
-    ...mapActions(["getProduct"]),
+    ...mapGetters(["getProduct"]),
   },
   created() {
-    this.getProduct(this.$route.params.id);
+    this.fetchProduct(this.$route.params.id);
   },
 };
 </script>

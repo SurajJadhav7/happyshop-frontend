@@ -11,20 +11,19 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from "vuex";
+import { mapActions } from "vuex";
 export default {
   name: "FilterBySort",
   computed: {
     sortBy() {
-      return this.$store.state.product.sort;
+      return this.getSort;
     },
   },
   methods: {
-    ...mapActions(["getProducts"]),
-    ...mapMutations(["setSort"]),
+    ...mapActions(["fetchProducts", "changeSort"]),
     async onSort(sort) {
-      this.setSort(sort);
-      await this.getProducts();
+      this.changeSort(sort);
+      await this.fetchProducts();
     },
   },
 };

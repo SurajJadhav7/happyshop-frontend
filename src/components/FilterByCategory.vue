@@ -5,38 +5,32 @@
     :value="selectedCategory"
   >
     <option value="" selected>Filter by Category</option>
-    <option v-for="category in categories" :key="category" :value="category">
+    <option v-for="category in getCategories" :key="category" :value="category">
       {{ category }}
     </option>
   </select>
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "FilterByCategory",
-  data() {
-    return {
-      categories: [],
-    };
-  },
   computed: {
-    ...mapGetters(["allCategories"]),
-    selectedCategory() {
-      return this.$store.state.product.category;
-    },
+    ...mapGetters({
+      selectedCategory: "getCategory",
+      getCategories: "getCategories",
+    }),
   },
   methods: {
-    ...mapActions(["getCategories", "getProducts"]),
-    ...mapMutations(["setCategory"]),
+    ...mapActions(["fetchCategories", "fetchProducts", "changeCategory"]),
     async onFilterByCategory(category) {
-      this.setCategory(category);
-      await this.getProducts();
+      this.changeCategory(category);
+      await this.fetchProducts();
     },
   },
   async created() {
-    await this.getCategories();
-    this.categories = this.allCategories;
+    await this.fetchCategories();
+    this.categories = this.getCategories;
   },
 };
 </script>

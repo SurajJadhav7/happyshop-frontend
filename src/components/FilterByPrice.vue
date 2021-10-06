@@ -6,7 +6,7 @@
         @change="onFilterByMinPrice($event.target.value)"
         type="number"
         class="text-center price-filter ml-3"
-        :value="minPrice"
+        :value="getMinPrice"
         min="50"
         max="10000"
         maxlength="5"
@@ -18,7 +18,7 @@
         @change="onFilterByMaxPrice($event.target.value)"
         type="number"
         class="text-center price-filter mx-3"
-        :value="maxPrice"
+        :value="getMaxPrice"
         min="50"
         max="10000"
       />
@@ -27,27 +27,24 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "FilterByPrice",
   computed: {
-    minPrice() {
-      return this.$store.state.product.minprice;
-    },
-    maxPrice() {
-      return this.$store.state.product.maxprice;
-    },
+    ...mapGetters({
+      getMinPrice: "getMinPrice",
+      getMaxPrice: "getMaxPrice",
+    }),
   },
   methods: {
-    ...mapActions(["getProducts"]),
-    ...mapMutations(["setMinPrice", "setMaxPrice"]),
+    ...mapActions(["fetchProducts", "changeMinPrice", "changeMaxPrice"]),
     async onFilterByMinPrice(minprice) {
-      this.setMinPrice(minprice);
-      await this.getProducts();
+      this.changeMinPrice(minprice);
+      await this.fetchProducts();
     },
     async onFilterByMaxPrice(maxprice) {
-      this.setMaxPrice(maxprice);
-      await this.getProducts();
+      this.changeMaxPrice(maxprice);
+      await this.fetchProducts();
     },
   },
 };

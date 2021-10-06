@@ -3,10 +3,7 @@
     <div class="discount float-right">
       <p class="my-0 sale-text">{{ product.sale_text }}</p>
     </div>
-    <img
-      src="https://lorempixel.com/300/400/abstract/"
-      class="card-img-top product-image"
-    />
+    <img :src="product.img" class="card-img-top product-image" />
     <div class="card-body">
       <p class="category">{{ product.category }}</p>
       <h5 class="card-title text-center product-name">
