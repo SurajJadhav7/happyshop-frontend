@@ -40,7 +40,7 @@ const actions = {
     },
     async fetchProduct({ commit }, id) {
         const response = await axios.get(`http://localhost:3001/products/${id}`);
-        commit('setProduct', response.data);
+        commit('setProduct', { ...response.data, img: 'http://loremflickr.com/300/300/product' });
     },
     async fetchCategories({ commit }) {
         const response = await axios.get('http://localhost:3001/categories');
