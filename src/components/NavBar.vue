@@ -1,43 +1,25 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-ow">
+    <nav class="navbar navbar-expand-lg navbar-light bg-ow">
       <router-link
         class="navbar-brand font-italic"
         to="/"
         v-on:click.native="goToHomePage()"
         >HappyShop</router-link
       >
-      <form
-        class="form-inline my-lg-1 mx-auto w-75"
-        @submit="onSearch($event, $event.target.search.value)"
-      >
-        <input
-          class="form-control mr-sm-2 w-75"
-          type="search"
-          name="search"
-          :value="getQuery"
-        />
-        <button class="btn btn-outline-success my-sm-0" type="submit">
-          Search
-        </button>
-      </form>
+      <Search />
     </nav>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
+import Search from "./Search.vue";
+
 export default {
-  computed: {
-    ...mapGetters(["getQuery"]),
-  },
+  components: { Search },
   methods: {
-    ...mapActions(["fetchProducts", "callResetState", "changeQuery"]),
-    async onSearch(e, query) {
-      e.preventDefault();
-      this.changeQuery(query);
-      await this.fetchProducts();
-    },
+    ...mapActions(["fetchProducts", "callResetState"]),
     goToHomePage() {
       this.callResetState();
       this.fetchProducts();

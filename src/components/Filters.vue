@@ -1,12 +1,12 @@
 <template>
   <div class="text-center">
-    <div class="d-inline-block">
+    <div class="d-inline-block my-3">
       <FilterByCategory />
     </div>
-    <div class="d-inline-block">
+    <div class="d-inline-block my-3">
       <FilterByPrice />
     </div>
-    <div class="d-inline-block">
+    <div class="d-inline-block my-3">
       <SortByPrice />
     </div>
   </div>

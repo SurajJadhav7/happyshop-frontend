@@ -59,7 +59,6 @@
 import { mapActions, mapGetters } from "vuex";
 
 export default {
-  name: "Details",
   computed: {
     ...mapGetters(["getProduct"]),
   },
@@ -74,7 +73,6 @@ export default {
 
 <style>
 body {
-  padding-top: 70px;
   font-family: "Roboto Condensed", sans-serif;
   background-color: #f5f5f5;
 }
