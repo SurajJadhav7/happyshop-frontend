@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const baseURL = "https://happyshop-backend.herokuapp.com/";
-const baseURL = "http://localhost:3000/";
+const baseURL = "https://happyshop-backend.herokuapp.com/";
+// const baseURL = "http://localhost:3000/";
 
 const state = {
     products: [],
