@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const baseURL = "https://happyshop-backend.herokuapp.com/";
+
 const state = {
     products: [],
     product: {},
@@ -33,17 +35,17 @@ const actions = {
             maxprice = [1000, 2000, 4000, 8000, 10000][parseInt(state.priceFilter) - 1];
         }
         const params = `query=${state.query}&category=${state.category}&sort=${state.sort}&minprice=${minprice}&maxprice=${maxprice}&page=${state.currentPage}`
-        const response = await axios.get(`http://localhost:3000/products?${params}`);
+        const response = await axios.get(`${baseURL}/products?${params}`);
         const products = response.data.products.map(product => ({ ...product, img: 'http://loremflickr.com/300/300/product' }));
         commit('setProducts', products);
         commit('setTotalPages', 1 + Math.floor((response.data.total - 1) / 24));
     },
     async fetchProduct({ commit }, id) {
-        const response = await axios.get(`http://localhost:3000/products/${id}`);
+        const response = await axios.get(`${baseURL}/products/${id}`);
         commit('setProduct', { ...response.data, img: 'http://loremflickr.com/300/300/product' });
     },
     async fetchCategories({ commit }) {
-        const response = await axios.get('http://localhost:3000/categories');
+        const response = await axios.get(`${baseURL}/categories`);
         commit('setCategories', response.data);
     },
     async callResetState({ commit }) {
