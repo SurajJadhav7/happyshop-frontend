@@ -1,6 +1,8 @@
 <template>
   <nav>
-    <ul class="pagination pagination-lg justify-content-center my-5">
+    <pagination
+      class="pagination pagination-lg justify-content-center my-5 flex-sm-wrap"
+    >
       <li class="page-item" :class="isFirstPage()">
         <a class="page-link" href="#" @click="navigateToPreviousPage()"
           >Previous</a
@@ -17,7 +19,7 @@
       <li class="page-item" :class="isLastPage()">
         <a class="page-link" href="#" @click="navigateToNextPage()">Next</a>
       </li>
-    </ul>
+    </pagination>
   </nav>
 </template>
 

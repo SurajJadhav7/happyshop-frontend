@@ -3,7 +3,7 @@
     <div class="col-lg-10 main-section bg-white p-0">
       <div class="row m-0">
         <div class="col-lg-6 p-0 m-0">
-          <img class="w-100" :src="getProduct.img" />
+          <img class="w-100" :src="getProduct.image" />
         </div>
         <div class="col-lg-6">
           <div class="right-side p-3 m-0">

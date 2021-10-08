@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const baseURL = "https://happyshop-backend.herokuapp.com/";
+// const baseURL = "https://happyshop-backend.herokuapp.com/";
+const baseURL = "http://localhost:3000/";
 
 const state = {
     products: [],
@@ -12,6 +13,8 @@ const state = {
     priceFilter: '',
     page: 1,
     totalPages: 1,
+    minprices: [0, 40, 60, 100, 300],
+    maxprices: [40, 60, 100, 300, 1000000],
 }
 
 const getters = {
@@ -24,20 +27,21 @@ const getters = {
     getPriceFilter: state => state.priceFilter,
     getCurrentPage: state => state.currentPage,
     getTotalPages: state => state.totalPages,
+    getMinPrices: state => state.minprices,
+    getMaxPrices: state => state.maxprices,
 }
 
 const actions = {
     async fetchProducts({ commit }) {
-        let minprice = 50;
+        let minprice = 0;
         let maxprice = 10000;
         if (state.priceFilter !== '') {
-            minprice = [50, 1000, 2000, 4000, 8000][parseInt(state.priceFilter) - 1];
-            maxprice = [1000, 2000, 4000, 8000, 10000][parseInt(state.priceFilter) - 1];
+            minprice = state.minprices[parseInt(state.priceFilter)];
+            maxprice = state.maxprices[parseInt(state.priceFilter)];
         }
         const params = `query=${state.query}&category=${state.category}&sort=${state.sort}&minprice=${minprice}&maxprice=${maxprice}&page=${state.currentPage}`
         const response = await axios.get(`${baseURL}/products?${params}`);
-        const products = response.data.products.map(product => ({ ...product, img: 'http://loremflickr.com/300/300/product' }));
-        commit('setProducts', products);
+        commit('setProducts', response.data.products);
         commit('setTotalPages', 1 + Math.floor((response.data.total - 1) / 24));
     },
     async fetchProduct({ commit }, id) {

@@ -7,11 +7,13 @@
         :value="getPriceFilter"
       >
         <option value="" selected>Filter by Price</option>
-        <option value="1">Under $1000</option>
-        <option value="2">$1000 - $2000</option>
-        <option value="3">$2000 - $4000</option>
-        <option value="4">$4000 - $8000</option>
-        <option value="5">Over $8000</option>
+        <option value="0">Under ${{ getMaxPrices[0] }}</option>
+        <option :value="i" v-for="i in getMinPrices.length - 2" :key="i">
+          ${{ getMinPrices[i] }} - ${{ getMaxPrices[i] }}
+        </option>
+        <option :value="getMinPrices.length - 1">
+          Over ${{ getMinPrices[getMinPrices.length - 1] }}
+        </option>
       </select>
     </div>
   </div>
@@ -24,6 +26,8 @@ export default {
   computed: {
     ...mapGetters({
       getPriceFilter: "getPriceFilter",
+      getMinPrices: "getMinPrices",
+      getMaxPrices: "getMaxPrices",
     }),
   },
   methods: {
