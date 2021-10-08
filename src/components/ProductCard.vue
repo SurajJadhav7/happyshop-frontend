@@ -23,7 +23,7 @@
           v-else
           type="button"
           class="btn btn-primary btn-lg mx-auto bottom-right"
-          :to="'/details/' + product.id"
+          :to="productDetailsRoute(product)"
           >Details</router-link
         >
       </div>
@@ -34,6 +34,16 @@
 export default {
   name: "ProductCard",
   props: ["product"],
+  methods: {
+    productDetailsRoute(product) {
+      return {
+        name: "ProductDetails",
+        params: {
+          id: product.id,
+        },
+      };
+    },
+  },
 };
 </script>
 <style>

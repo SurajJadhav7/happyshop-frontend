@@ -30,7 +30,7 @@ export default {
   },
   async created() {
     await this.fetchCategories();
-    this.categories = this.getCategories;
+    // this.categories = this.getCategories;
   },
 };
 </script>

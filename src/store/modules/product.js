@@ -20,7 +20,7 @@ const getters = {
     getCategory: state => state.category,
     getSort: state => state.sort,
     getPriceFilter: state => state.priceFilter,
-    getPage: state => state.page,
+    getCurrentPage: state => state.currentPage,
     getTotalPages: state => state.totalPages,
 }
 
@@ -32,18 +32,18 @@ const actions = {
             minprice = [50, 1000, 2000, 4000, 8000][parseInt(state.priceFilter) - 1];
             maxprice = [1000, 2000, 4000, 8000, 10000][parseInt(state.priceFilter) - 1];
         }
-        const params = `query=${state.query}&category=${state.category}&sort=${state.sort}&minprice=${minprice}&maxprice=${maxprice}&page=${state.page}`
-        const response = await axios.get(`http://localhost:3001/products?${params}`);
+        const params = `query=${state.query}&category=${state.category}&sort=${state.sort}&minprice=${minprice}&maxprice=${maxprice}&page=${state.currentPage}`
+        const response = await axios.get(`http://localhost:3000/products?${params}`);
         const products = response.data.products.map(product => ({ ...product, img: 'http://loremflickr.com/300/300/product' }));
         commit('setProducts', products);
         commit('setTotalPages', 1 + Math.floor((response.data.total - 1) / 24));
     },
     async fetchProduct({ commit }, id) {
-        const response = await axios.get(`http://localhost:3001/products/${id}`);
+        const response = await axios.get(`http://localhost:3000/products/${id}`);
         commit('setProduct', { ...response.data, img: 'http://loremflickr.com/300/300/product' });
     },
     async fetchCategories({ commit }) {
-        const response = await axios.get('http://localhost:3001/categories');
+        const response = await axios.get('http://localhost:3000/categories');
         commit('setCategories', response.data);
     },
     async callResetState({ commit }) {
@@ -87,10 +87,10 @@ const mutations = {
         state.category = ''
         state.sort = ''
         state.priceFilter = ''
-        state.page = 1
+        state.currentPage = 1
         state.totalPages = 1
     },
-    setPage: (state, page) => (state.page = page),
+    setPage: (state, page) => (state.currentPage = page),
     setTotalPages: (state, totalPages) => (state.totalPages = totalPages)
 }
 

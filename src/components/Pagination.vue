@@ -28,7 +28,7 @@ export default {
   computed: {
     ...mapGetters({
       getTotalPages: "getTotalPages",
-      getPage: "getPage",
+      getCurrentPage: "getCurrentPage",
     }),
   },
   methods: {
@@ -38,18 +38,18 @@ export default {
       this.fetchProducts();
     },
     navigateToNextPage() {
-      this.changePage(this.getPage + 1);
+      this.changePage(this.getCurrentPage + 1);
       this.fetchProducts();
     },
     navigateToPreviousPage() {
-      this.changePage(this.getPage - 1);
+      this.changePage(this.getCurrentPage - 1);
       this.fetchProducts();
     },
     isFirstPage() {
-      return this.getPage === 1 ? "disabled" : "";
+      return this.getCurrentPage === 1 ? "disabled" : "";
     },
     isLastPage() {
-      return this.getPage === this.getTotalPages ? "disabled" : "";
+      return this.getCurrentPage === this.getTotalPages ? "disabled" : "";
     },
   },
 };
