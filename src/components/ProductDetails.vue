@@ -15,7 +15,7 @@
               <div class="col-lg-12">
                 <h4 class="price-sale mr-1">${{ getProduct.sale_price }}</h4>
                 <h2 class="m-0 p-0 price-pro mr-3">${{ getProduct.price }}</h2>
-                <h5 class="d-inline">{{ getProduct.sale_text }}</h5>
+                <h5 class="d-inline">{{ getProduct.discount }}% OFF</h5>
                 <hr class="p-0 my-3" />
               </div>
               <div class="col-lg-12 pt-2">
@@ -39,12 +39,19 @@
                 />
               </div>
               <div class="col-lg-12 mt-3">
-                <div class="row">
+                <button
+                  v-if="getProduct.sold_out"
+                  class="btn btn-dark btn-lg mx-auto bottom-right"
+                  disabled
+                >
+                  Sold Out
+                </button>
+                <div v-else class="row">
                   <div class="col-lg-6 pb-2">
                     <a href="#" class="btn btn-danger w-100">Add To Cart</a>
                   </div>
                   <div class="col-lg-6">
-                    <a href="#" class="btn btn-success w-100">Shop Now</a>
+                    <a href="#" class="btn btn-primary w-100">Buy Now</a>
                   </div>
                 </div>
               </div>

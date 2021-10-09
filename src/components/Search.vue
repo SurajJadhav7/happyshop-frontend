@@ -9,7 +9,7 @@
       name="search"
       :value="getQuery"
     />
-    <button class="btn btn-outline-success my-sm-0" type="submit">
+    <button class="btn btn-outline-primary my-sm-0" type="submit">
       Search
     </button>
   </form>

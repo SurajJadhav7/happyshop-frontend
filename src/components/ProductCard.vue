@@ -1,5 +1,5 @@
 <template>
-  <div class="card mb-4 shadow-sm">
+  <router-link class="card mb-4 shadow-sm" :to="productDetailsRoute(product)">
     <div class="discount float-right">
       <p class="my-0 sale-text">{{ product.sale_text }}</p>
     </div>
@@ -19,16 +19,12 @@
         >
           Sold Out
         </button>
-        <router-link
-          v-else
-          type="button"
-          class="btn btn-primary btn-lg mx-auto bottom-right"
-          :to="productDetailsRoute(product)"
-          >Details</router-link
-        >
+        <button v-else class="btn btn-primary btn-lg mx-auto bottom-right">
+          Details
+        </button>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 <script>
 export default {
@@ -57,6 +53,16 @@ p {
 }
 .card .product-image {
   height: 300px;
+}
+.card-body {
+  color: black !important;
+}
+.card:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s;
+}
+a {
+  text-decoration: none !important;
 }
 .product-name {
   margin-bottom: 50px;
