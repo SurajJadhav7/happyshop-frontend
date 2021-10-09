@@ -1,61 +1,48 @@
 <template>
-  <nav>
-    <pagination
-      class="pagination pagination-lg justify-content-center my-5 flex-sm-wrap"
-    >
-      <li class="page-item" :class="isFirstPage()">
-        <a class="page-link" href="#" @click="navigateToPreviousPage()"
-          >Previous</a
-        >
-      </li>
-      <li
-        class="page-item"
-        v-for="page in getTotalPages"
-        :key="page"
-        @click="navigate(page)"
-      >
-        <a class="page-link" href="#">{{ page }}</a>
-      </li>
-      <li class="page-item" :class="isLastPage()">
-        <a class="page-link" href="#" @click="navigateToNextPage()">Next</a>
-      </li>
-    </pagination>
-  </nav>
+  <div class="overflow-auto">
+    <b-pagination
+      v-model="currentPage"
+      class="pagination-lg justify-content-center my-5 flex-sm-wrap"
+      :total-rows="rows"
+      :per-page="perPage"
+      first-text="First"
+      prev-text="Prev"
+      next-text="Next"
+      last-text="Last"
+    ></b-pagination>
+  </div>
 </template>
 
 <script>
+import { BPagination } from "bootstrap-vue";
 import { mapGetters, mapActions } from "vuex";
-
 export default {
+  components: {
+    BPagination,
+  },
   computed: {
     ...mapGetters({
-      getTotalPages: "getTotalPages",
+      rows: "getTotalResults",
       getCurrentPage: "getCurrentPage",
     }),
+    currentPage: {
+      get() {
+        return this.getCurrentPage;
+      },
+      set(val) {
+        this.changeCurrentPage(val);
+      },
+    },
   },
   methods: {
-    ...mapActions(["fetchProducts", "changePage"]),
-    navigate(page) {
-      this.changePage(page);
-      this.fetchProducts();
-    },
-    navigateToNextPage() {
-      this.changePage(this.getCurrentPage + 1);
-      this.fetchProducts();
-    },
-    navigateToPreviousPage() {
-      this.changePage(this.getCurrentPage - 1);
-      this.fetchProducts();
-    },
-    isFirstPage() {
-      return this.getCurrentPage === 1 ? "disabled" : "";
-    },
-    isLastPage() {
-      return this.getCurrentPage === this.getTotalPages ? "disabled" : "";
-    },
+    ...mapActions({
+      changeCurrentPage: "changeCurrentPage",
+    }),
+  },
+  data() {
+    return {
+      perPage: 24,
+    };
   },
 };
 </script>
-
-<style>
-</style>

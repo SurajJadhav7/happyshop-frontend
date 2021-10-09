@@ -11,8 +11,8 @@ const state = {
     category: '',
     sort: '',
     priceFilter: '',
-    page: 1,
-    totalPages: 1,
+    currentPage: 1,
+    TotalResults: 1,
     minprices: [0, 40, 60, 100, 300],
     maxprices: [40, 60, 100, 300, 1000000],
 }
@@ -26,7 +26,7 @@ const getters = {
     getSort: state => state.sort,
     getPriceFilter: state => state.priceFilter,
     getCurrentPage: state => state.currentPage,
-    getTotalPages: state => state.totalPages,
+    getTotalResults: state => state.TotalResults,
     getMinPrices: state => state.minprices,
     getMaxPrices: state => state.maxprices,
 }
@@ -42,7 +42,7 @@ const actions = {
         const params = `query=${state.query}&category=${state.category}&sort=${state.sort}&minprice=${minprice}&maxprice=${maxprice}&page=${state.currentPage}`
         const response = await axios.get(`${baseURL}/products?${params}`);
         commit('setProducts', response.data.products);
-        commit('setTotalPages', 1 + Math.floor((response.data.total - 1) / 24));
+        commit('setTotalResults', response.data.total);
     },
     async fetchProduct({ commit }, id) {
         const response = await axios.get(`${baseURL}/products/${id}`);
@@ -53,26 +53,28 @@ const actions = {
         commit('setCategories', response.data);
     },
     async callResetState({ commit }) {
-        commit('setPage', 1);
+        commit('setCurrentPage', 1);
         commit('resetState');
     },
-    async changePage({ commit }, page) {
-        commit('setPage', page);
+    async changeCurrentPage({ commit, dispatch }, page) {
+        commit('setCurrentPage', page);
+        window.scrollTo(0, 0);
+        dispatch('fetchProducts');
     },
     async changeQuery({ commit }, query) {
-        commit('setPage', 1);
+        commit('setCurrentPage', 1);
         commit('setQuery', query);
     },
     async changeCategory({ commit }, category) {
-        commit('setPage', 1);
+        commit('setCurrentPage', 1);
         commit('setCategory', category);
     },
     async changeSort({ commit }, sort) {
-        commit('setPage', 1);
+        commit('setCurrentPage', 1);
         commit('setSort', sort);
     },
     async changePriceFilter({ commit }, priceFilter) {
-        commit('setPage', 1);
+        commit('setCurrentPage', 1);
         commit('setPriceFilter', priceFilter);
     }
 }
@@ -94,10 +96,10 @@ const mutations = {
         state.sort = ''
         state.priceFilter = ''
         state.currentPage = 1
-        state.totalPages = 1
+        state.TotalResults = 1
     },
-    setPage: (state, page) => (state.currentPage = page),
-    setTotalPages: (state, totalPages) => (state.totalPages = totalPages)
+    setCurrentPage: (state, page) => (state.currentPage = page),
+    setTotalResults: (state, TotalResults) => (state.TotalResults = TotalResults)
 }
 
 export default {
