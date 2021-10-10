@@ -52,30 +52,14 @@ const actions = {
         const response = await axios.get(`${baseURL}/categories`);
         commit('setCategories', response.data);
     },
-    async callResetState({ commit }) {
+    async callResetState({ commit, dispatch }) {
         commit('setCurrentPage', 1);
         commit('resetState');
-    },
-    async changeCurrentPage({ commit, dispatch }, page) {
-        commit('setCurrentPage', page);
-        window.scrollTo(0, 0);
         dispatch('fetchProducts');
     },
-    async changeQuery({ commit }, query) {
-        commit('setCurrentPage', 1);
-        commit('setQuery', query);
-    },
-    async changeCategory({ commit }, category) {
-        commit('setCurrentPage', 1);
-        commit('setCategory', category);
-    },
-    async changeSort({ commit }, sort) {
-        commit('setCurrentPage', 1);
-        commit('setSort', sort);
-    },
-    async changePriceFilter({ commit }, priceFilter) {
-        commit('setCurrentPage', 1);
-        commit('setPriceFilter', priceFilter);
+    async changeState({ commit }, query) {
+        commit('resetState');
+        commit("setState", query);
     }
 }
 
@@ -90,7 +74,6 @@ const mutations = {
     resetState: () => {
         state.products = []
         state.product = {}
-        state.categories = []
         state.query = ''
         state.category = ''
         state.sort = ''
@@ -99,7 +82,12 @@ const mutations = {
         state.TotalResults = 1
     },
     setCurrentPage: (state, page) => (state.currentPage = page),
-    setTotalResults: (state, TotalResults) => (state.TotalResults = TotalResults)
+    setTotalResults: (state, TotalResults) => (state.TotalResults = TotalResults),
+    setState: (state, params) => {
+        for (let key in params) {
+            state[key] = params[key];
+        }
+    },
 }
 
 export default {

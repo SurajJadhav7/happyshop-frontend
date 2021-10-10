@@ -2,9 +2,9 @@
   <select
     class="category-filter"
     @change="onFilterByCategory($event.target.value)"
-    :value="selectedCategory"
+    :value="getCategory"
   >
-    <option value="" selected>Filter by Category</option>
+    <option value="">Filter by Category</option>
     <option v-for="category in getCategories" :key="category" :value="category">
       {{ category }}
     </option>
@@ -16,21 +16,19 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   name: "FilterByCategory",
   computed: {
-    ...mapGetters({
-      selectedCategory: "getCategory",
-      getCategories: "getCategories",
-    }),
+    ...mapGetters(["getCategories", "getCategory"]),
   },
   methods: {
-    ...mapActions(["fetchCategories", "fetchProducts", "changeCategory"]),
+    ...mapActions(["fetchCategories"]),
     async onFilterByCategory(category) {
-      this.changeCategory(category);
-      await this.fetchProducts();
+      await this.$router.push({
+        name: "Products",
+        query: { ...this.$route.query, category },
+      });
     },
   },
-  async created() {
+  async beforeMount() {
     await this.fetchCategories();
-    // this.categories = this.getCategories;
   },
 };
 </script>

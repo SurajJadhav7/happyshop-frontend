@@ -15,7 +15,7 @@
 
 <script>
 import { BPagination } from "bootstrap-vue";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   components: {
     BPagination,
@@ -30,14 +30,17 @@ export default {
         return this.getCurrentPage;
       },
       set(val) {
-        this.changeCurrentPage(val);
+        this.onPageChange(val);
       },
     },
   },
   methods: {
-    ...mapActions({
-      changeCurrentPage: "changeCurrentPage",
-    }),
+    async onPageChange(page) {
+      await this.$router.push({
+        name: "Products",
+        query: { ...this.$route.query, currentPage: page },
+      });
+    },
   },
   data() {
     return {

@@ -16,17 +16,18 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   computed: {
     ...mapGetters(["getQuery"]),
   },
   methods: {
-    ...mapActions(["fetchProducts", "changeQuery"]),
     async onSearch(e, query) {
       e.preventDefault();
-      this.changeQuery(query);
-      await this.fetchProducts();
+      await this.$router.push({
+        name: "Products",
+        query: { ...this.$route.query, query },
+      });
     },
   },
 };

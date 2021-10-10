@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-ow">
       <router-link
         class="navbar-brand font-italic"
-        to="/"
+        to="/products"
         v-on:click.native="goToHomePage()"
         >HappyShop</router-link
       >
@@ -19,10 +19,9 @@ import Search from "./Search.vue";
 export default {
   components: { Search },
   methods: {
-    ...mapActions(["fetchProducts", "callResetState"]),
-    goToHomePage() {
+    ...mapActions(["callResetState"]),
+    async goToHomePage() {
       this.callResetState();
-      this.fetchProducts();
     },
   },
 };

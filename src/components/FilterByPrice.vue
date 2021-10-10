@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   name: "FilterByPrice",
   computed: {
@@ -31,10 +31,11 @@ export default {
     }),
   },
   methods: {
-    ...mapActions(["fetchProducts", "changePriceFilter"]),
     async onFilterByPrice(value) {
-      this.changePriceFilter(value);
-      await this.fetchProducts();
+      await this.$router.push({
+        name: "Products",
+        query: { ...this.$route.query, priceFilter: value },
+      });
     },
   },
 };

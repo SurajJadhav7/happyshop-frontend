@@ -15,19 +15,20 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   name: "FilterBySort",
   computed: {
-    sortBy() {
-      return this.getSort;
-    },
+    ...mapGetters({
+      sortBy: "getSort",
+    }),
   },
   methods: {
-    ...mapActions(["fetchProducts", "changeSort"]),
     async onSort(sort) {
-      this.changeSort(sort);
-      await this.fetchProducts();
+      await this.$router.push({
+        name: "Products",
+        query: { ...this.$route.query, sort },
+      });
     },
   },
 };

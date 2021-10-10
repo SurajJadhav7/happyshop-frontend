@@ -42,10 +42,19 @@ export default {
     }),
   },
   methods: {
-    ...mapActions(["fetchProducts"]),
+    ...mapActions(["changeState", "fetchProducts"]),
   },
-  mounted() {
+  async created() {
+    const url_params = this.$route.query;
+    await this.changeState(url_params);
     this.fetchProducts({});
+  },
+  watch: {
+    async $route() {
+      const url_params = this.$route.query;
+      await this.changeState(url_params);
+      this.fetchProducts({});
+    },
   },
 };
 </script>
