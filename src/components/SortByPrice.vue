@@ -27,7 +27,7 @@ export default {
     async onSort(sort) {
       await this.$router.push({
         name: "Products",
-        query: { ...this.$route.query, sort },
+        query: { ...this.$route.query, currentPage: 1, sort },
       });
     },
   },

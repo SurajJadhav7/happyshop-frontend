@@ -26,7 +26,7 @@ export default {
       e.preventDefault();
       await this.$router.push({
         name: "Products",
-        query: { ...this.$route.query, query },
+        query: { ...this.$route.query, currentPage: 1, query },
       });
     },
   },

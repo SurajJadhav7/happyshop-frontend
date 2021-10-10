@@ -34,7 +34,7 @@ export default {
     async onFilterByPrice(value) {
       await this.$router.push({
         name: "Products",
-        query: { ...this.$route.query, priceFilter: value },
+        query: { ...this.$route.query, currentPage: 1, priceFilter: value },
       });
     },
   },

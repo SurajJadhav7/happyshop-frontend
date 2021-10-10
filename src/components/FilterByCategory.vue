@@ -23,7 +23,7 @@ export default {
     async onFilterByCategory(category) {
       await this.$router.push({
         name: "Products",
-        query: { ...this.$route.query, category },
+        query: { ...this.$route.query, currentPage: 1, category },
       });
     },
   },
