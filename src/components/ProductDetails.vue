@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="col-lg-10 main-section bg-white p-0">
+    <div class="col-lg-10 main-section bg-white">
       <div class="row m-0">
         <div class="col-lg-6 p-0 m-0">
           <img class="w-100" :src="getProduct.image" />
@@ -93,6 +93,8 @@ input {
   left: 50%;
   right: 50%;
   transform: translate(-50%, 5%);
+  max-width: 1240px;
+  padding: 0 0 10rem;
 }
 
 .right-side p {

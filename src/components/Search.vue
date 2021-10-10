@@ -1,18 +1,18 @@
 <template>
-  <form
-    class="form-inline my-lg-1 mx-auto w-75"
-    @submit="onSearch($event, $event.target.search.value)"
-  >
-    <input
-      class="form-control mr-sm-2 w-75"
-      type="search"
-      name="search"
-      :value="getQuery"
-    />
-    <button class="btn btn-outline-primary my-sm-0" type="submit">
-      Search
-    </button>
-  </form>
+  <div class="m-auto">
+    <form
+      class="form-inline"
+      @submit="onSearch($event, $event.target.search.value)"
+    >
+      <input
+        class="form-control m-3"
+        type="search"
+        name="search"
+        :value="getQuery"
+      />
+      <button class="btn btn-outline-primary m-3" type="submit">Search</button>
+    </form>
+  </div>
 </template>
 
 <script>

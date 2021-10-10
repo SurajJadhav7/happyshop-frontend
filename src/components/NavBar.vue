@@ -2,11 +2,14 @@
   <div>
     <nav class="navbar navbar-expand-lg navbar-light bg-ow">
       <router-link
-        class="navbar-brand font-italic"
         to="/products"
         v-on:click.native="goToHomePage()"
-        >HappyShop</router-link
+        class="m-auto"
+        type="div"
       >
+        <img src="../assets/logo.png" alt="logo" />
+        <h1 class="navbar-brand font-italic">HappyShop</h1>
+      </router-link>
       <Search />
     </nav>
   </div>
@@ -32,11 +35,15 @@ export default {
   background-color: #f9f9f9;
 }
 .navbar-brand {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-family: "Times New Roman", Times, serif;
-  margin-left: 13%;
+  margin: auto;
 }
 form {
   max-width: 1000px;
+}
+img {
+  height: 3.6rem;
+  margin-right: 1rem;
 }
 </style>
