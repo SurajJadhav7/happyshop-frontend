@@ -1,11 +1,11 @@
 <template>
-  <div class="m-auto">
+  <div class="m-auto w-50">
     <form
       class="form-inline"
       @submit="onSearch($event, $event.target.search.value)"
     >
       <input
-        class="form-control m-3"
+        class="form-control m-3 w-75"
         type="search"
         name="search"
         :value="getQuery"
